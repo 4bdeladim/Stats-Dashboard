@@ -1,11 +1,13 @@
 import NextAuth from 'next-auth/next';
 import type { NextAuthOptions } from 'next-auth';
+import { User as NextAuthUser } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from '@/lib/prisma';
 import argon2 from 'argon2';
+
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -40,27 +42,23 @@ export const authOptions: NextAuthOptions = {
                 },
             },
             async authorize(credentials) {
-                const email = credentials?.email;
-                const password = credentials?.password;
-                const user = await prisma.user.findUnique({
-                    where: { email },
-                });
-                if (!user) {
-                    return null;
-                }
-								else if(!user.emailVerified) {
-									return null
-								}
-                try {
-                    if (await argon2.verify(user.password!, password!)) {
-                        return user;
-                    } else {
-                        return null;
-                    }
-                } catch (error) {
-                    return null;
-                }
-            },
+							const email = credentials?.email;
+							const password = credentials?.password;
+							const user = await prisma.user.findUnique({
+								where: { email },
+							});
+					
+							if (!user || !user.emailVerified) {
+								return null;
+							}
+					
+							try {
+								const isPasswordValid = await argon2.verify(user.password!, password!);
+								return isPasswordValid ? user as unknown as NextAuthUser : null;
+							} catch (error) {
+								return null;
+							}
+						},
         }),
     ],
     callbacks: {

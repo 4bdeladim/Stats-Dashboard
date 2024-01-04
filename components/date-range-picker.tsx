@@ -1,10 +1,9 @@
 "use client"
 
-import * as React from "react"
+import {HTMLAttributes, useEffect, useState} from "react"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { addDays, format } from "date-fns"
 import { DateRange } from "react-day-picker"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -13,15 +12,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useDispatch, useSelector } from "react-redux"
+import { StoreType } from "@/types"
+import { changeDate } from "@/store/slices/filter"
 
-export function CalendarDateRangePicker({
-  className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2023, 0, 20),
-    to: addDays(new Date(2023, 0, 20), 20),
-  })
-
+export function CalendarDateRangePicker({ className }: HTMLAttributes<HTMLDivElement>) {
+	const date = useSelector((state:StoreType) => state.filters.dateRange);
+	const dispatch = useDispatch();
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
@@ -31,11 +28,11 @@ export function CalendarDateRangePicker({
             variant={"outline"}
             className={cn(
               "w-[260px] justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              (!date) && "text-muted-foreground"
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {date?.from ? (
+            {date.from ? (
               date.to ? (
                 <>
                   {format(date.from, "LLL dd, y")} -{" "}
@@ -55,7 +52,7 @@ export function CalendarDateRangePicker({
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={setDate}
+            onSelect={(date) => dispatch(changeDate(date!!))}
             numberOfMonths={2}
           />
         </PopoverContent>
