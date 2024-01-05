@@ -26,6 +26,7 @@ export default function ChartContainer({
 						<Skeleton className="h-[40px] w-full rounded-md" />
 						<Skeleton className="h-[40px] w-full rounded-md" />
 						<Skeleton className="h-[40px] w-full rounded-md" />
+						<Skeleton className="h-[40px] w-full rounded-md" />
 					</div>
 				) : (
 					children

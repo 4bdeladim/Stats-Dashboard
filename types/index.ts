@@ -32,5 +32,7 @@ export interface StoreType {
 
 export interface ChartApiResponse {
 	date: string,
-	revenue: number
+	totalRevenue: number,
+	subscriptionCount: number,
+	oneTimeCount: number
 }

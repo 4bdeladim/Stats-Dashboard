@@ -4,7 +4,7 @@ import ChartContainer from "../ChartContainer";
 import { useGetDaysRevenueInDurationQuery } from "@/store/services/revenue";
 import { useSelector } from "react-redux";
 import { StoreType } from "@/types";
-import { formatApiResponseToChart } from "@/lib/utils";
+import { formatRevenueApiResponseToChart } from "@/lib/utils";
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
@@ -27,7 +27,7 @@ export default function Revenue(){
 		<ChartContainer title="Total revenue each day : " loading={isFetching}>
 			{
 				data ? (
-					<Line data={formatApiResponseToChart(data)} options={options} />
+					<Line data={formatRevenueApiResponseToChart(data)} options={options} />
 				) : null
 			}
 		</ChartContainer>

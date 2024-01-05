@@ -22,29 +22,35 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     const revenueInDuration = await prisma.payment.groupBy({
-      by: ['paymentDate'],
-      _sum: {
-        amount: true,
-      },
-      where: {
-        paid: true,
-        paymentDate: {
-          gte: start,
-          lte: end,
-        },
-      },
-    });
-
-    const revenueMap = new Map<number, number>();
+			by: ['paymentDate', 'type'],
+			_count: true,
+			_sum: {
+				amount: true
+			},
+			where: {
+				paid: true,
+				paymentDate: {
+					gte: start,
+					lte: end,
+				},
+			},
+		});
+		const revenueMap = new Map<number, number>();
     revenueInDuration.forEach((entry) => {
       const date = new Date(entry.paymentDate).getDate();
       revenueMap.set(date, entry._sum.amount || 0);
     });
-
-    const result = dateArray.map((date) => ({
-      date: date.getDate(),
-      revenue: revenueMap.get(date.getDate()) || 0,
-    }));
+		const result = dateArray.map((date) => {
+			const subscriptions = revenueInDuration.find((e) => e.type === 'Subscription' && new Date(e.paymentDate).getDate() === date.getDate());
+			const oneTime = revenueInDuration.find((e) => e.type === 'One-time' && new Date(e.paymentDate).getDate() === date.getDate());
+		
+			return {
+				date: date.getDate(),
+				totalRevenue: revenueMap.get(date.getDate()) || 0,
+				subscriptionCount: subscriptions ? subscriptions._count || 0 : 0,
+				oneTimeCount: oneTime ? oneTime._count || 0 : 0,
+			};
+		});
 
     return NextResponse.json(result);
   } catch (error) {
