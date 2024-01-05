@@ -21,7 +21,9 @@ export default function RootLayout({
 	<NextAuthProvider>
     <html lang="en">
 			<Provider>
-				<body className={inter.className + " min-h-screen"}>{children}<Toaster/></body>
+				<body className={inter.className + " min-h-screen"}>
+					{children}<Toaster/>
+				</body>
 			</Provider>
     </html>
 	</NextAuthProvider>

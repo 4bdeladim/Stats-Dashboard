@@ -1,4 +1,4 @@
-import { Duration, RevenueResponse } from "@/types";
+import { ChartApiResponse, Duration, RevenueResponse } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { endOfDay, endOfMonth, endOfWeek, startOfDay, startOfMonth, startOfWeek, subDays, subMonths, subWeeks } from 'date-fns';
 
@@ -48,8 +48,16 @@ export const dashboardApi = createApi({
 		
 				return `/revenue?startDate=${start.toISOString()}&endDate=${end.toISOString()}&compareStartDate=${lastYearStartDate.toISOString()}&compareEndDate=${lastYearEndDate.toISOString()}`;
 			}
+		}),
+		getDaysRevenueInDuration: builder.query<ChartApiResponse[], Duration>({
+			query: (duration: Duration) => {
+				const { startDate, endDate } = duration;
+				const start = startDate ? new Date(startDate) : new Date();
+				const end = endDate ? new Date(endDate) : new Date();
+				return `/charts/revenue?startDate=${start.toISOString()}&endDate=${end.toISOString()}`;
+			}
 		})
   }),
 });
 
-export const {useGetTodayRevenueQuery, useGetWeekRevenueQuery, useGetMonthRevenueQuery, useGetDurationRevenueQuery} = dashboardApi;
+export const { useGetTodayRevenueQuery, useGetWeekRevenueQuery, useGetMonthRevenueQuery, useGetDurationRevenueQuery, useGetDaysRevenueInDurationQuery } = dashboardApi;

@@ -1,10 +1,10 @@
 import { Metadata } from "next"
-import Image from "next/image"
+
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { UserAuthForm } from "@/components/user-auth-form"
+import  UserAuthForm  from "@/components/UserAuthForm"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../api/auth/[...nextauth]/route"
 import { redirect } from "next/navigation"

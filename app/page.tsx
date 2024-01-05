@@ -5,6 +5,7 @@ import { CardsContainer } from "@/components/cards-container"
 import { DateRange } from "react-day-picker"
 import React from "react"
 import { addDays } from "date-fns"
+import Revenue from "@/components/charts/Revenue"
 
 
 
@@ -31,6 +32,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <CardsContainer />
+					<Revenue />
         </div>
       </div>
     </>

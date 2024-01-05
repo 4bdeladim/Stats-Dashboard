@@ -12,10 +12,10 @@ export default function CardWithLoading({ loading, children }: CardWithLoadingPr
     <Card className={loading ? "flex flex-col justify-center items-center gap-2 py-2" : undefined}>
       {loading ? (
 				<>
-					<Skeleton className="h-4 w-11/12 rounded-md" />
-					<Skeleton className="h-4 w-11/12 rounded-md" />
-					<Skeleton className="h-4 w-11/12 rounded-md" />
-					<Skeleton className="h-4 w-11/12 rounded-md" />
+					<Skeleton className="h-[20px] w-11/12 rounded-md" />
+					<Skeleton className="h-[20px] w-11/12 rounded-md" />
+					<Skeleton className="h-[20px] w-11/12 rounded-md" />
+					<Skeleton className="h-[20px] w-11/12 rounded-md" />
 				</>
 			) : 
 			children

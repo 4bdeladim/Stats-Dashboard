@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export default function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const [email, setEmail] = React.useState("");
 	const {toast} = useToast();
@@ -40,12 +40,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
+      <form onSubmit={onSubmit} className="flex flex-col gap-4 my-0">
+
             <Input
               id="email"
               placeholder="email@example.com"
@@ -56,11 +52,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
 							onChange={(e) => setEmail(e.target.value)}
             />
-          </div>
-					<div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Password
-            </Label>
             <Input
               id="password"
               placeholder="password"
@@ -71,12 +62,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
 							onChange={(e) => setPassword(e.target.value)}
             />
-          </div>
+
 
           <Button disabled={isLoading}>
             Sign In
           </Button>
-        </div>
       </form>
 			<div className="relative">
         <div className="absolute inset-0 flex items-center">

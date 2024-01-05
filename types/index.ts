@@ -28,3 +28,9 @@ export interface StoreType {
 		dateRange: DateRange
 	}
 }
+
+
+export interface ChartApiResponse {
+	date: string,
+	revenue: number
+}

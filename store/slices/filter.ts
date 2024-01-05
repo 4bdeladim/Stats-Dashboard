@@ -1,13 +1,12 @@
 import { FiltersType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { addDays } from "date-fns";
 import { DateRange } from "react-day-picker";
 
 const initialState = {
 	dateRange: {
-    from: new Date(2023, 0, 20),
-    to: addDays(new Date(2023, 0, 20), 20),
+    from: new Date(2023, 11, 2),
+    to: new Date(2024, 0, 20)
   }
 } as FiltersType
 
