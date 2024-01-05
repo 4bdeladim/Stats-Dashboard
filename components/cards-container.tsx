@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetDurationRevenueQuery, useGetMonthRevenueQuery, useGetTodayRevenueQuery, useGetWeekRevenueQuery } from "@/store/services/revenue";
+import { useGetDurationRevenueQuery, useGetMonthRevenueQuery, useGetTodayRevenueQuery, useGetWeekRevenueQuery } from "@/store/services";
 import { CardContent, CardHeader, CardTitle } from "./ui/card";
 
 import Card from "@/components/Card"

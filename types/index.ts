@@ -30,9 +30,28 @@ export interface StoreType {
 }
 
 
-export interface ChartApiResponse {
+export interface RevenueChartApiResponse {
 	date: string,
 	totalRevenue: number,
 	subscriptionCount: number,
 	oneTimeCount: number
+}
+
+export interface LeadsChartApiResponse {
+	date: string,
+	leadCount: number
+}
+
+export interface LeadStatusType {
+	statusName: string,
+	statusId: number
+}
+
+
+export interface LeadsStatusesChartApiResponse {
+  date: string;
+  statusCounts: {
+    status: string;
+    count: number;
+  }[];
 }

@@ -1,10 +1,10 @@
 "use client"
 import { Line } from "react-chartjs-2";
 import ChartContainer from "../ChartContainer";
-import { useGetDaysRevenueInDurationQuery } from "@/store/services";
+import { useGetDaysLeadsInDurationQuery } from "@/store/services";
 import { useSelector } from "react-redux";
 import { StoreType } from "@/types";
-import { formatRevenueApiResponseToChart } from "@/lib/utils";
+import { formatLeadsApiResponseToChart } from "@/lib/utils";
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
@@ -20,14 +20,14 @@ const options = {
     display: false,
   },
 };
-export default function Revenue(){
+export default function Leads(){
 	const date = useSelector((state:StoreType) => state.filters.dateRange);
-	const { isFetching, data } = useGetDaysRevenueInDurationQuery({startDate: date.from?.toISOString(), endDate: date.to?.toISOString()});
+	const { isFetching, data } = useGetDaysLeadsInDurationQuery({startDate: date.from?.toISOString(), endDate: date.to?.toISOString()});
 	return (
-		<ChartContainer title="Total revenue each day : " loading={isFetching}>
+		<ChartContainer title="Total leads each day : " loading={isFetching}>
 			{
 				data ? (
-					<Line data={formatRevenueApiResponseToChart(data)} options={options} />
+					<Line data={formatLeadsApiResponseToChart(data)} options={options} />
 				) : null
 			}
 		</ChartContainer>

@@ -2,10 +2,10 @@ import { Metadata } from "next"
 import { CalendarDateRangePicker } from "@/components/date-range-picker"
 import { LogoutButton } from "@/components/logout"
 import { CardsContainer } from "@/components/cards-container"
-import { DateRange } from "react-day-picker"
 import React from "react"
-import { addDays } from "date-fns"
 import Revenue from "@/components/charts/Revenue"
+import Leads from "@/components/charts/Leads"
+import LeadsStatuses from "@/components/charts/LeadsStatuses"
 
 
 
@@ -33,6 +33,8 @@ export default function DashboardPage() {
           </div>
           <CardsContainer />
 					<Revenue />
+					<Leads />
+					<LeadsStatuses />
         </div>
       </div>
     </>

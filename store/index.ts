@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducer';
 import { setupListeners } from "@reduxjs/toolkit/query"
-import { dashboardApi } from './services/revenue';
+import { dashboardApi } from './services';
 
 
 

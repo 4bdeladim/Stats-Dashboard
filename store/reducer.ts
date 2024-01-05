@@ -1,5 +1,5 @@
 import { combineSlices } from '@reduxjs/toolkit';
-import { dashboardApi } from './services/revenue';
+import { dashboardApi } from './services';
 import filter from './slices/filter';
 
 
